@@ -15,13 +15,13 @@ st.image(
     width=120
 )
 
-st.title("📱 Cellphone Prediction App")
+st.title("📱 Cellphone Prediction App by PRINCE RAJPUT")
 st.write("Enter all feature values to get prediction")
 
 # -------------------------
 # Load trained model
 # -------------------------
-model = joblib.load("celphone.pkl")
+model = joblib.load("Phone_price.pkl")
 
 # -------------------------
 # Input fields (EXACT order)
