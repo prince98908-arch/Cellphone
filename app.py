@@ -45,7 +45,6 @@ front_camera = st.number_input("Front Camera (MP)", min_value=0, value=16)
 # Prediction
 # -------------------------
 if st.button("Predict Price 💰"):
-    # 1. Raw Input DataFrame banana
     input_df = pd.DataFrame({
         "Brand": [brand],
         "Storage": [storage],
@@ -54,7 +53,9 @@ if st.button("Predict Price 💰"):
         "back_camera": [back_camera],
         "front_camera": [front_camera]
     })
+    input_df_encoded = pd.get_dummies(input_df)
+    input_df_final = input_df_encoded.reindex(columns=model_columns, fill_value=0)
 
-    prediction = model.predict(input_df)
+    prediction = model.predict(input_df_final)
 
     st.success(f"💰 Predicted Price: ₹ {int(prediction[0]):,}")
