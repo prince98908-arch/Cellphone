@@ -18,14 +18,14 @@ st.image(
     "https://cdn-icons-png.flaticon.com/512/747/747376.png",
     width=120
 )
-st.title("📱 Phone Price Prediction App  (by :- PRINCE RAJPUT)")
-st.write("Enter phone details to predict price")
+st.title("📱 Phone Price Prediction App")
+st.write("Devloped by PRINCE RAJPUT")
 
 # -------------------------
 # Load trained pipeline
 # (get_dummies + scaler + model)
 # -------------------------
-model = joblib.load("Phone_price.pkl")
+model = joblib.load("phonee.pkl")
 
 # -------------------------
 # User Inputs
