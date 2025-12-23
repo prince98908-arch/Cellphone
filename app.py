@@ -25,7 +25,7 @@ st.write("Devloped by PRINCE RAJPUT")
 # Load trained pipeline
 # (get_dummies + scaler + model)
 # -------------------------
-model = joblib.load("phonee.pkl")
+model, model_columns = joblib.load("phonee.pkl")
 
 # -------------------------
 # User Inputs
