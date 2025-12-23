@@ -1,11 +1,15 @@
 import streamlit as st
 import joblib
-import numpy as np
+import pandas as pd
 
 # -------------------------
 # Page config
 # -------------------------
-st.set_page_config(page_title="Cellphone Price Prediction app", page_icon="📱")
+st.set_page_config(
+    page_title="Phone Price Prediction",
+    page_icon="📱",
+    layout="centered"
+)
 
 # -------------------------
 # Title with image
@@ -14,40 +18,42 @@ st.image(
     "https://cdn-icons-png.flaticon.com/512/747/747376.png",
     width=120
 )
-
-st.title("📱 Cellphone Prediction App by PRINCE RAJPUT")
-st.write("Enter all feature values to get prediction")
+st.title("📱 Phone Price Prediction App  (by :- PRINCE RAJPUT)")
+st.write("Enter phone details to predict price")
 
 # -------------------------
-# Load trained model
+# Load trained pipeline
+# (get_dummies + scaler + model)
 # -------------------------
 model = joblib.load("Phone_price.pkl")
 
 # -------------------------
-# Input fields (EXACT order)
+# User Inputs
 # -------------------------
-sale = st.number_input("Sale", value=0.0)
-weight = st.number_input("Weight", value=0.0)
-resolution = st.number_input("Resolution", value=0.0)
-ppi = st.number_input("PPI", value=0.0)
-cpu_core = st.number_input("CPU Cores", value=0)
-cpu_freq = st.number_input("CPU Frequency", value=0.0)
-internal_mem = st.number_input("Internal Memory", value=0.0)
-ram = st.number_input("RAM", value=0.0)
-rear_cam = st.number_input("Rear Camera", value=0.0)
-front_cam = st.number_input("Front Camera", value=0.0)
-battery = st.number_input("Battery", value=0.0)
-thickness = st.number_input("Thickness", value=0.0)
+brand = st.selectbox(
+    "Brand",
+    ["Apple", "Samsung", "OnePlus", "Xiaomi", "Google"]
+)
+
+storage = st.number_input("Storage (GB)", min_value=0, value=128)
+ram = st.number_input("RAM (GB)", min_value=0, value=8)
+battery = st.number_input("Battery (mAh)", min_value=0, value=4000)
+back_camera = st.number_input("Back Camera (MP)", min_value=0, value=48)
+front_camera = st.number_input("Front Camera (MP)", min_value=0, value=16)
 
 # -------------------------
 # Prediction
 # -------------------------
-if st.button("Predict"):
-    input_data = np.array([[ 
-        sale, weight, resolution, ppi, cpu_core,
-        cpu_freq, internal_mem, ram,
-        rear_cam, front_cam, battery, thickness
-    ]])
+if st.button("Predict Price 💰"):
+    input_df = pd.DataFrame({
+        "Brand": [brand],
+        "Storage": [storage],
+        "RAM": [ram],
+        "Battery(mAh)": [battery],
+        "back camera": [back_camera],
+        "front camera": [front_camera]
+    })
 
-    prediction = model.predict(input_data)
-    st.success(f"Prediction Result: {prediction[0]}")
+    prediction = model.predict(input_df)
+
+    st.success(f"💰 Predicted Price: ₹ {int(prediction[0]):,}")
