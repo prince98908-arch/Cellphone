@@ -21,7 +21,7 @@ st.write("Enter all feature values to get prediction")
 # -------------------------
 # Load trained model
 # -------------------------
-model = joblib.load("cellphone.pkl")
+model = joblib.load("celphone.pkl")
 
 # -------------------------
 # Input fields (EXACT order)
